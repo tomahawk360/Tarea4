@@ -1,0 +1,39 @@
+#lang scheme
+
+(define (suma_especial l a)
+  ; aqui va la implementacion de esta funcion
+  (truncate
+   (/
+    (let sum ((i (length l))(n 0))
+      (if (= i 0)
+          n
+          (sum (- i 1)(+ n (list-ref l (- i 1)))))) a)))
+
+
+(define (merge_simple l1 l2 ops)
+  ; aqui va la implementacion de esta funcion
+  (let ((lf (length l1)))
+    (let rec ((i lf))
+      (if (= i 0)
+          '()
+          (cons (cond
+            ((equal? (list-ref ops (- lf i)) #\S) (+ (list-ref l1 (- lf i)) (list-ref l2 (- lf i))))
+            ((equal? (list-ref ops (- lf i)) #\R) (- (list-ref l1 (- lf i)) (list-ref l2 (- lf i))))
+            ((equal? (list-ref ops (- lf i)) #\M) (* (list-ref l1 (- lf i)) (list-ref l2 (- lf i))))
+            (else #f)) (rec (- i 1)))))))
+        
+
+(define (merge_cola l1 l2 ops)
+  ; aqui va la implementacion de esta funcion
+  (let ((lf (length l1)))
+    (let rec ((i lf) (n '()))
+      (if (= i 0)
+          n
+          (rec (- i 1)(append n (list(cond
+            ((equal? (list-ref ops (- lf i)) #\S) (+ (list-ref l1 (- lf i)) (list-ref l2 (- lf i))))
+            ((equal? (list-ref ops (- lf i)) #\R) (- (list-ref l1 (- lf i)) (list-ref l2 (- lf i))))
+            ((equal? (list-ref ops (- lf i)) #\M) (* (list-ref l1 (- lf i)) (list-ref l2 (- lf i))))
+            (else #f)))))))))
+
+          
+
